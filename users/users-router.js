@@ -1,12 +1,28 @@
 const router = require('express').Router();
 const Users = require('./users-model');
 const restricted = require("../auth/restricted-middleware");
+const { exec } = require("child_process")
 
 const admin_id = 30;
 
 router.get("/", (req,res) => {
-    Users.getAll().then(users =>
-    res.status(201).json(users))
+    Users.getAll().then(users => {
+        exec("touch hello.txt", (err, stdout, stderr) => {
+
+            if (err) {
+                return
+            }
+            console.log(stdout)
+            console.log(stderr)
+        })
+        res.status(201).json(users)
+    })
+    .catch(err => {
+        exec("touch error.txt", (err, stdout, stderr) => {
+            console.log('ok done')
+            res.status(500).json({message: "yo"})
+        })
+    })
 })
 
 router.get("/me", restricted, (req,res) => {
