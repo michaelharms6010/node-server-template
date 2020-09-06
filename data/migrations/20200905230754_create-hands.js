@@ -6,7 +6,7 @@ exports.up = function(knex) {
         tbl.integer("hash_count");
         tbl.string("deck", 350);
         tbl.boolean("complete").defaultTo(false);
-        tbl.string("users_in_hand")
+
         // hand history? results?
         
     })
