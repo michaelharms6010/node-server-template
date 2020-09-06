@@ -14,7 +14,11 @@ router.get("/", (req,res) => {
 
 router.get("/validate/:id", async (req, res) => {
     const message = await Hands.validate(req.params.id)
-    res.status(200).json({message})
+    if (message.complete) {
+        res.status(200).json({message})
+    } else {
+        res.status(401).json({message: "That hand isn't done yet."})
+    }
 })
 
 router.get("/:id", (req,res) => {
@@ -29,7 +33,7 @@ router.get("/:id", (req,res) => {
 })
 
 router.put("/:id", (req,res) => {
-    Hands.update(req.params.id, {complete: true}).then(hand => {
+    Hands.setAsComplete(req.params.id).then(hand => {
          res.status(200).json({hand}) 
     })
     .catch(err => {

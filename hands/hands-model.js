@@ -36,6 +36,12 @@ function remove(id) {
       .update(changes, '*').returning("*");
   }
 
+  function setAsComplete(id) {
+    return db('hands')
+      .where({id})
+      .update({complete: true}, '*').returning("*");
+  }
+
   function createNew() {
       const hand = new Hand();
       const newHand = {
@@ -55,7 +61,8 @@ function remove(id) {
         deck: JSON.parse(hand.deck),
         proof: hand.proof, 
         hash_count: hand.hash_count,
-        valid: validation
+        valid: validation,
+        complete: hand.complete
     }
     console.log("validationString", validationObject)
     console.log(validation)
