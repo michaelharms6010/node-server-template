@@ -50,7 +50,6 @@ function remove(id) {
           hash_count: hand.hashCount
 
       }
-      console.log(newHand)
       return db("hands").insert(newHand)
   }
 

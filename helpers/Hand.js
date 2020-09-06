@@ -44,7 +44,7 @@ class Deck {
     }
 
     getHashCount() {
-        return Math.floor(Math.random() * 50000)
+        return Math.floor(Math.random() * 90000) + 10000
     }
 
 
@@ -67,8 +67,6 @@ class Deck {
         for (let i = 0; i < hashCount; i++) {
             hash = blake3.hash(hash);
         }
-        console.log("hash", hash)
-        console.log("proof", proof)
 
         return hash.toString("hex") === proof
 
